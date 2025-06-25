@@ -1,0 +1,57 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Home from "./pages/Home";
+import About from "./pages/About";
+import Activities from "./pages/Activities";
+import Events from "./pages/Events";
+import Blog from "./pages/Blog";
+import Contact from "./pages/Contact";
+import Footer from "./pages/Footer";
+import ActividadDetalle from "./pages/ActividadDetalle";
+import BlogDetail from "./pages/BlogDetail";
+import EventDetail from "./pages/EventDetail"; // <-- AÑADE ESTA LÍNEA
+
+// Componente para la página principal (todas las secciones juntas)
+const HomePage = () => {
+  return (
+    <>
+      <Home />
+      <About />
+      <Activities />
+      <Events />
+      <Blog />
+      <Contact />
+    </>
+  );
+};
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Navbar />
+      <Routes>
+        {/* Página principal con todas las secciones */}
+        <Route path="/" element={<HomePage />} />
+        
+        {/* Páginas individuales */}
+        <Route path="/home" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/activities" element={<Activities />} />
+        <Route path="/events" element={<Events />} />
+        <Route path="/blog" element={<Blog />} />
+        <Route path="/contact" element={<Contact />} />
+        
+        {/* Páginas de detalle */}
+        <Route path="/actividades/:id" element={<ActividadDetalle />} />
+        <Route path="/blog/:id" element={<BlogDetail />} />
+        <Route path="/eventos/:id" element={<EventDetail />} /> {/* <-- AÑADE ESTA LÍNEA */}
+        
+        {/* Ruta por defecto - redirige a home */}
+        <Route path="*" element={<HomePage />} />
+      </Routes>
+      <Footer />
+    </BrowserRouter>
+  );
+}
+
+export default App;
