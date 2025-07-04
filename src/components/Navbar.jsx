@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import { Menu, X } from 'lucide-react';
 import logoMa9arBlanco from '../assets/LogoMa9arBlancoNeutroPNG.png';
 import logoMa9ar from '../assets/LogoMa9arPNG.png';
@@ -23,10 +23,10 @@ const Navbar = () => {
 
   const navItems = [
     { name: 'Inicio', href: '#inicio' },
-    { name: 'Quiénes Somos', href: '#about' },
-    { name: 'Actividades', href: '#activities' },
-    { name: 'Eventos', href: '#events' },
-    { name: 'Blog', href: '#blog' },
+    { name: 'Quiénes Somos', href: '#about', isPage: true, route: '/quienes-somos' },
+    { name: 'Actividades', href: '#activities', isPage: true, route: '/actividades' },
+    { name: 'Eventos', href: '#events', isPage: true, route: '/eventos' },
+    { name: 'Blog', isPage: true, route: '/blog' },
   ];
 
   // Función para manejar la navegación
@@ -111,20 +111,35 @@ const Navbar = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex absolute left-1/2 transform -translate-x-1/2 space-x-8">
-            {navItems.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
-                onClick={() => handleNavClick(item.href)}
-                className={`relative font-medium text-lg transition-all duration-200 hover:scale-105 group ${getTextColor()} hover:text-[#C19E4B]`}
-              >
-                {item.name}
-                <span 
-                  className="absolute -bottom-1 left-0 w-0 h-0.5 transition-all duration-200 group-hover:w-full"
-                  style={{ backgroundColor: '#C19E4B' }}
-                ></span>
-              </a>
-            ))}
+            {navItems.map((item) =>
+              item.isPage ? (
+                <Link
+                  key={item.name}
+                  to={item.route}
+                  className={`relative font-medium text-lg transition-all duration-200 hover:scale-105 group ${getTextColor()} hover:text-[#C19E4B]`}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {item.name}
+                  <span 
+                    className="absolute -bottom-1 left-0 w-0 h-0.5 transition-all duration-200 group-hover:w-full"
+                    style={{ backgroundColor: '#C19E4B' }}
+                  ></span>
+                </Link>
+              ) : (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  onClick={() => handleNavClick(item.href)}
+                  className={`relative font-medium text-lg transition-all duration-200 hover:scale-105 group ${getTextColor()} hover:text-[#C19E4B]`}
+                >
+                  {item.name}
+                  <span 
+                    className="absolute -bottom-1 left-0 w-0 h-0.5 transition-all duration-200 group-hover:w-full"
+                    style={{ backgroundColor: '#C19E4B' }}
+                  ></span>
+                </a>
+              )
+            )}
           </nav>
 
           {/* Contact Button */}
@@ -154,16 +169,27 @@ const Navbar = () => {
         {isMenuOpen && (
           <div className="md:hidden">
             <div className="px-4 pt-4 pb-6 space-y-2 bg-white/95 backdrop-blur-lg rounded-2xl mt-4 shadow-strong border border-neutral-100">
-              {navItems.map((item) => (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  className="block px-4 py-3 text-neutral-700 font-medium text-lg hover:text-primary-900 hover:bg-primary-50 rounded-xl transition-all duration-300"
-                  onClick={() => handleNavClick(item.href)}
-                >
-                  {item.name}
-                </a>
-              ))}
+              {navItems.map((item) =>
+                item.isPage ? (
+                  <Link
+                    key={item.name}
+                    to={item.route}
+                    className="block px-4 py-3 text-neutral-700 font-medium text-lg hover:text-primary-900 hover:bg-primary-50 rounded-xl transition-all duration-300"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {item.name}
+                  </Link>
+                ) : (
+                  <a
+                    key={item.name}
+                    href={item.href}
+                    className="block px-4 py-3 text-neutral-700 font-medium text-lg hover:text-primary-900 hover:bg-primary-50 rounded-xl transition-all duration-300"
+                    onClick={() => handleNavClick(item.href)}
+                  >
+                    {item.name}
+                  </a>
+                )
+              )}
               <a
                 href="#contact"
                 className="block px-4 py-3 bg-primary-900 text-white font-semibold text-lg hover:bg-primary-800 transition-all duration-300 mt-4 text-center"

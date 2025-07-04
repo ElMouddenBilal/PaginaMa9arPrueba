@@ -1,12 +1,19 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Calendar, Clock, MapPin, Users, ExternalLink, ArrowRight } from "lucide-react";
+import { Calendar, Clock, MapPin, Users, ExternalLink } from "lucide-react";
+import SectionIntro from "../components/SectionIntro";
 
 // Colores corporativos
 const GOLD = "#C19E4B";
 const GOLD_HOVER = "#A0822A";
 
-// Solo eventos destacados para la sección de la home
+// Formateador de fecha
+const formatDate = (dateStr) => {
+  const date = new Date(dateStr);
+  return date.toLocaleDateString("es-ES", { day: "2-digit", month: "long", year: "numeric" });
+};
+
+// Solo eventos destacados
 const featuredEvents = [
   {
     id: 1,
@@ -29,11 +36,6 @@ const featuredEvents = [
     totalSpots: 120,
   }
 ];
-
-const formatDate = (dateStr) => {
-  const date = new Date(dateStr);
-  return date.toLocaleDateString("es-ES", { day: "2-digit", month: "long", year: "numeric" });
-};
 
 // Componente EventFeaturedCard con el estilo original bonito
 const EventFeaturedCard = ({ event, formatDate, GOLD, GOLD_HOVER, onClick }) => (
@@ -91,24 +93,41 @@ const EventFeaturedCard = ({ event, formatDate, GOLD, GOLD_HOVER, onClick }) => 
   </div>
 );
 
-const Events = () => {
+const EventsPage = () => {
   const navigate = useNavigate();
 
   return (
-    <section id="events" className="py-20 bg-gradient-to-b from-[#f8fafc] to-[#e8eaf6]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl lg:text-5xl font-extrabold mb-6 text-[#002060]">
-            Próximos Eventos
-          </h2>
+    <div className="min-h-screen bg-gradient-to-b from-[#f8fafc] to-[#e8eaf6] pt-32 pb-16">
+      {/* Explicación y fotos */}
+      <SectionIntro
+        title="Eventos Destacados"
+        paragraphs={[
+          "En el CCCBcn organizamos eventos especiales para toda la comunidad: conferencias, jornadas culturales, talleres, celebraciones y mucho más. Nuestro objetivo es crear espacios de encuentro, aprendizaje y convivencia, abiertos a todas las edades y perfiles.",
+          "Participar en nuestros eventos destacados es una oportunidad única para conocer gente, compartir experiencias y fortalecer los lazos entre los miembros de la comunidad y la sociedad en general."
+        ]}
+        images={[
+          {
+            src: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+            alt: "Evento cultural"
+          },
+          {
+            src: "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+            alt: "Evento social"
+          }
+        ]}
+      />
+
+      {/* Eventos destacados con el estilo original bonito */}
+      <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold text-[#002060] mb-4">Próximos Eventos</h2>
           <div className="w-24 h-1 mx-auto mb-6" style={{ background: 'linear-gradient(to right, #002060, #C19E4B)' }}></div>
-          <p className="text-xl text-neutral-600 max-w-3xl mx-auto leading-relaxed">
-            Únete a nuestros eventos especiales y forma parte de nuestra comunidad
+          <p className="text-lg text-neutral-600 max-w-3xl mx-auto">
+            ¡No te pierdas nuestros eventos más importantes!
           </p>
         </div>
-
-        {/* Eventos destacados con el estilo original bonito */}
+        
+        {/* Cambié el grid por space-y-0 para que se vean uno debajo del otro */}
         <div className="space-y-0">
           {featuredEvents.map((event) => (
             <EventFeaturedCard
@@ -121,20 +140,9 @@ const Events = () => {
             />
           ))}
         </div>
-
-        {/* Botón para ver todos los eventos */}
-        <div className="text-center">
-          <button
-            onClick={() => navigate('/eventos')}
-            className="inline-flex items-center gap-3 px-8 py-4 bg-[#002060] text-white font-semibold text-lg rounded-xl hover:bg-[#001040] transition-all duration-300 transform hover:scale-105 shadow-lg mt-10"
-          >
-            Ver todos los eventos
-            <ArrowRight className="h-5 w-5" />
-          </button>
-        </div>
-      </div>
-    </section>
+      </section>
+    </div>
   );
 };
 
-export default Events;
+export default EventsPage;

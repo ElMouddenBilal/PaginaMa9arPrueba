@@ -5,7 +5,7 @@ import { Calendar, User, Clock, ArrowLeft, Image as ImageIcon } from "lucide-rea
 // Los posts del blog con contenido completo
 const blogPosts = [
   {
-    id: 1, // <-- AÑADIR ESTE CAMPO
+    id: 1,
     title: "La Importancia de la Oración en el Islam",
     excerpt: "Reflexión sobre el significado espiritual y los beneficios de las cinco oraciones diarias en la vida del musulmán.",
     author: "Imam Muhammad",
@@ -36,7 +36,7 @@ const blogPosts = [
           <img src="https://images.pexels.com/photos/3401406/pexels-photo-3401406.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Momento de reflexión" class="w-full h-40 object-cover" />
         </div>
         <div class="rounded-xl overflow-hidden shadow flex items-center justify-center bg-gray-100">
-          <ImageIcon class="h-12 w-12 text-[#C19E4B]" />
+          <div class="h-12 w-12 text-[#C19E4B]">🕌</div>
         </div>
       </div>
       <h3 class="text-xl font-semibold mt-8 mb-2 text-[#C19E4B]">Reflexión Final</h3>
@@ -44,7 +44,7 @@ const blogPosts = [
     `
   },
   {
-    id: 2, // <-- AÑADIR ESTE CAMPO
+    id: 2,
     title: "Ramadán: Mes de Purificación",
     excerpt: "Preparándonos para el mes sagrado: consejos prácticos para aprovechar al máximo este tiempo de bendición.",
     author: "Ahmad Rahman",
@@ -70,7 +70,7 @@ const blogPosts = [
     `
   },
   {
-    id: 3, // <-- AÑADIR ESTE CAMPO
+    id: 3,
     title: "Construyendo Puentes: Islam y Sociedad",
     excerpt: "Cómo los musulmanes pueden contribuir positivamente a la construcción de una sociedad más justa y compasiva.",
     author: "Fatima Khalil",
@@ -96,7 +96,7 @@ const blogPosts = [
     `
   },
   {
-    id: 4, // <-- AÑADIR ESTE CAMPO
+    id: 4,
     title: "Los Jóvenes y la Fe",
     excerpt: "Desafíos y oportunidades para mantener una identidad islámica sólida en el mundo moderno.",
     author: "Ahmad Rahman",
@@ -133,9 +133,8 @@ const categoryIcons = {
 const BlogDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const post = blogPosts.find(p => p.id === parseInt(id, 10)); // <-- CAMBIO AQUÍ
+  const post = blogPosts.find(p => p.id === parseInt(id, 10));
 
-  // Scroll arriba al montar
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [id]);

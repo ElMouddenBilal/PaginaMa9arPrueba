@@ -1,10 +1,12 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import BlogFeaturedCard from '../components/BlogFeaturedCard';
 import BlogCard from '../components/BlogCard';
 import NewsletterCard from '../components/NewsletterCard';
+import SectionIntro from '../components/SectionIntro';
+import { useNavigate } from 'react-router-dom';
 import { MessageCircle } from 'lucide-react';
 
+// Array completo de blogPosts
 const blogPosts = [
   {
     id: 1,
@@ -71,43 +73,36 @@ const getCategoryColor = (category) => {
   return colors[category] || 'bg-gray-100 text-gray-800';
 };
 
-const Blog = () => {
+const BlogPage = () => {
   const navigate = useNavigate();
 
   return (
-    <section id="blog" className="py-20 bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-b from-[#f8fafc] to-[#e8eaf6] pt-32 pb-16">
+      {/* Explicación y fotos */}
+      <SectionIntro
+        title="Blog y Reflexiones"
+        paragraphs={[
+          "Bienvenido a nuestro espacio de reflexión y conocimiento. Aquí encontrarás artículos inspiradores, reflexiones espirituales y noticias de nuestra comunidad. Nuestro objetivo es compartir sabiduría, fortalecer la fe y crear puentes de entendimiento.",
+          "Cada artículo está escrito con amor y dedicación por miembros de nuestra comunidad, imanes y colaboradores que desean compartir sus conocimientos y experiencias contigo. ¡Explora, aprende y comparte!"
+        ]}
+        images={[
+          {
+            src: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+            alt: "Lectura y reflexión"
+          },
+          {
+            src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+            alt: "Comunidad y conocimiento"
+          }
+        ]}
+      />
+
+      {/* Contenido del blog */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl sm:text-5xl font-bold mb-6" style={{ color: '#002060' }}>
-            Blog y Reflexiones
-          </h2>
-          <div
-            className="w-24 h-1 mx-auto mb-8"
-            style={{
-              background: 'linear-gradient(to right, #002060, #C19E4B)'
-            }}
-          ></div>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Artículos, reflexiones espirituales y noticias de nuestra comunidad
-          </p>
-        </div>
-
-        {/* Featured Post */}
-        {blogPosts.filter(post => post.featured).map((post) => (
-          <BlogFeaturedCard
-            key={post.id}
-            post={post}
-            formatDate={formatDate}
-            getCategoryColor={getCategoryColor}
-            onClick={() => navigate(`/blog/${post.id}`)}
-          />
-        ))}
-
-        {/* Blog Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-          {blogPosts.filter(post => !post.featured).map((post) => (
-            <BlogCard
+        {/* Artículo destacado */}
+        <section className="mb-12">
+          {blogPosts.filter(post => post.featured).map((post) => (
+            <BlogFeaturedCard
               key={post.id}
               post={post}
               formatDate={formatDate}
@@ -115,9 +110,31 @@ const Blog = () => {
               onClick={() => navigate(`/blog/${post.id}`)}
             />
           ))}
-        </div>
+        </section>
 
-        {/* Newsletter Subscription */}
+        {/* Grid de artículos */}
+        <section className="mb-16">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-[#002060] mb-4">Más artículos</h2>
+            <div className="w-24 h-1 mx-auto mb-6" style={{ background: 'linear-gradient(to right, #002060, #C19E4B)' }}></div>
+            <p className="text-lg text-neutral-600 max-w-3xl mx-auto">
+              Descubre más reflexiones y conocimientos de nuestra comunidad
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {blogPosts.filter(post => !post.featured).map((post) => (
+              <BlogCard
+                key={post.id}
+                post={post}
+                formatDate={formatDate}
+                getCategoryColor={getCategoryColor}
+                onClick={() => navigate(`/blog/${post.id}`)}
+              />
+            ))}
+          </div>
+        </section>
+
+        {/* Newsletter */}
         <NewsletterCard
           icon={<MessageCircle className="h-16 w-16 mx-auto" />}
           title="Mantente Conectado"
@@ -125,8 +142,8 @@ const Blog = () => {
           gradient={true}
         />
       </div>
-    </section>
+    </div>
   );
 };
 
-export default Blog;
+export default BlogPage;

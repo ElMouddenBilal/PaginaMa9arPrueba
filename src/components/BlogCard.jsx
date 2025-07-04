@@ -39,7 +39,7 @@ const BlogCard = ({ post, formatDate, getCategoryColor, onClick }) => (
             color: '#002060'
           }}
           onClick={e => {
-            e.stopPropagation(); // Para que no se dispare dos veces si el usuario pulsa el botón
+            e.stopPropagation();
             onClick();
           }}
         >

@@ -2,7 +2,8 @@ import React, { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Calendar, Clock, MapPin, Users, ArrowLeft } from "lucide-react";
 
-const upcomingEvents = [
+// Solo eventos destacados
+const featuredEvents = [
   {
     id: 1,
     title: "Conferencia: Los Pilares del Islam",
@@ -26,72 +27,6 @@ const upcomingEvents = [
       <blockquote class="border-l-4 border-[#C19E4B] pl-4 italic my-4 text-neutral-700">"Los cinco pilares del Islam son los fundamentos sobre los cuales se construye la vida del musulmán."</blockquote>
       <h3 class="text-xl font-semibold mt-8 mb-2 text-[#C19E4B]">¿Para quién es esta conferencia?</h3>
       <p>Esta conferencia está abierta a toda la comunidad, tanto para musulmanes que deseen profundizar en su conocimiento como para personas interesadas en aprender sobre el Islam.</p>
-    `
-  },
-  {
-    id: 2,
-    title: "Clase de Árabe para Principiantes",
-    date: "2024-01-19",
-    time: "18:30",
-    location: "Aula 2",
-    description: "Curso introductorio al idioma árabe para nuevos estudiantes.",
-    totalSpots: 25,
-    category: "Educación",
-    featured: false,
-    details: `
-      <h2 class="text-2xl font-bold mt-8 mb-4 text-[#002060]">Aprende árabe desde cero</h2>
-      <p>Este curso está diseñado para personas que nunca han estudiado árabe y desean comenzar su aprendizaje de manera estructurada y progresiva.</p>
-      <ul class="list-disc pl-6 my-4">
-        <li>Alfabeto árabe y pronunciación básica</li>
-        <li>Vocabulario esencial para la vida diaria</li>
-        <li>Frases básicas de cortesía y presentación</li>
-        <li>Introducción a la gramática árabe</li>
-      </ul>
-      <p>Las clases se imparten en un ambiente relajado y participativo, con materiales didácticos incluidos.</p>
-    `
-  },
-  {
-    id: 3,
-    title: "Reunión de Hermanas",
-    date: "2024-01-22",
-    time: "17:00",
-    location: "Sala de Reuniones",
-    description: "Encuentro mensual de las hermanas de la comunidad para compartir y conectar.",
-    totalSpots: 40,
-    category: "Comunidad",
-    featured: false,
-    details: `
-      <h2 class="text-2xl font-bold mt-8 mb-4 text-[#002060]">Fortaleciendo lazos entre hermanas</h2>
-      <p>Nuestro encuentro mensual es un espacio seguro y acogedor donde las hermanas de la comunidad pueden compartir experiencias, apoyarse mutuamente y fortalecer los lazos de hermandad.</p>
-      <ul class="list-disc pl-6 my-4">
-        <li>Círculo de conversación y reflexión</li>
-        <li>Actividades de desarrollo personal</li>
-        <li>Intercambio de experiencias y consejos</li>
-        <li>Planificación de actividades comunitarias</li>
-      </ul>
-      <p>Todas las hermanas son bienvenidas, independientemente de su edad o tiempo en la comunidad.</p>
-    `
-  },
-  {
-    id: 4,
-    title: "Actividades Juveniles",
-    date: "2024-01-27",
-    time: "16:00",
-    location: "Patio Exterior",
-    description: "Deportes y actividades de ocio para jóvenes de la comunidad.",
-    totalSpots: 30,
-    category: "Juventud",
-    featured: false,
-    details: `
-      <h2 class="text-2xl font-bold mt-8 mb-4 text-[#002060]">Diversión y compañerismo juvenil</h2>
-      <p>Una tarde llena de actividades deportivas y recreativas diseñadas especialmente para los jóvenes de nuestra comunidad, fomentando el compañerismo y la vida saludable.</p>
-      <ul class="list-disc pl-6 my-4">
-        <li>Fútbol y baloncesto</li>
-        <li>Juegos de mesa y actividades grupales</li>
-        <li>Competencias amistosas</li>
-        <li>Merienda comunitaria</li>
-      </ul>
-      <p>Actividad dirigida a jóvenes entre 12 y 25 años. Se recomienda traer ropa deportiva y una botella de agua.</p>
     `
   },
   {
@@ -141,7 +76,7 @@ const formatDate = (dateString) => {
 const EventDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const event = upcomingEvents.find(e => e.id === parseInt(id, 10));
+  const event = featuredEvents.find(e => e.id === parseInt(id, 10));
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -199,16 +134,14 @@ const EventDetail = () => {
               <span>{event.totalSpots} plazas</span>
             </div>
           </div>
-          {event.featured && (
-            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2">
-              <span 
-                className="px-4 py-2 text-white text-sm font-semibold rounded-full"
-                style={{ backgroundColor: '#C19E4B' }}
-              >
-                Evento Destacado
-              </span>
-            </div>
-          )}
+          <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2">
+            <span 
+              className="px-4 py-2 text-white text-sm font-semibold rounded-full"
+              style={{ backgroundColor: '#C19E4B' }}
+            >
+              Evento Destacado
+            </span>
+          </div>
         </div>
 
         {/* Contenido */}
